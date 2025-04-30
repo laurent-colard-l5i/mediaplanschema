@@ -15,10 +15,10 @@
         "comments": { "type": "string" }
       }
     },
-    "campaign": { "$ref": "https://example.com/schemas/v1.0.0/campaign.schema.json" },
+    "campaign": { "$ref": "https://raw.githubusercontent.com/laurent-colard-l5i/media-plan-ods/main/schemas/v1.0.0/campaign.schema.json" },
     "lineitems": {
       "type": "array",
-      "items": { "$ref": "https://example.com/schemas/v1.0.0/lineitem.schema.json" }
+      "items": { "$ref": "https://raw.githubusercontent.com/laurent-colard-l5i/media-plan-ods/main/schemas/v1.0.0/lineitem.schema.json" }
     }
   }
 }

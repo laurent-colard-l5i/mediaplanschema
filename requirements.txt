@@ -1,0 +1,11 @@
+attrs==25.3.0
+colorama==0.4.6
+iniconfig==2.1.0
+jsonschema==4.23.0
+jsonschema-specifications==2025.4.1
+packaging==25.0
+pluggy==1.5.0
+pytest==8.3.5
+referencing==0.36.2
+rpds-py==0.24.0
+typing_extensions==4.13.2
