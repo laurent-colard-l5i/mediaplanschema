@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.com/schemas/v1.0.0/media_plan.schema.json",
+  "$id": "https://raw.githubusercontent.com/laurent-colard-l5i/media-plan-ods/main/schemas/v1.0.0/mediaplan.schema.json",
   "title": "Media Plan",
   "type": "object",
   "required": ["meta", "campaign", "lineitems"],
