@@ -46,8 +46,8 @@ Each media plan JSON file must include a `meta.schema_version` field that declar
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/laurent-colard-l5i/media-plan-ods.git
-cd media-plan-ods
+git clone https://github.com/laurent-colard-l5i/mediaplanschema.git
+cd mediaplanschema
 ```
 
 ### 2. Set Up a Virtual Environment
