@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/laurent-colard-l5i/media-plan-ods/main/schemas/v1.0.0/campaign.schema.json",
+  "$id": "https://raw.githubusercontent.com/laurent-colard-l5i/media-plan-ods/main/schemas/v0.0.0/campaign.schema.json",
   "title": "Campaign",
   "type": "object",
   "required": ["id", "name", "objective", "start_date", "end_date", "budget"],
