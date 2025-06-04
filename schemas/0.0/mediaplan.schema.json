@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com/laurent-colard-l5i/media-plan-ods/main/schemas/v0.0.0/mediaplan.schema.json",
+  "$id": "mediaplan.schema.json",
   "title": "Media Plan",
   "type": "object",
   "required": ["meta", "campaign", "lineitems"],
@@ -15,10 +15,10 @@
         "comments": { "type": "string" }
       }
     },
-    "campaign": { "$ref": "https://raw.githubusercontent.com/laurent-colard-l5i/media-plan-ods/main/schemas/v0.0.0/campaign.schema.json" },
+    "campaign": { "$ref": "campaign.schema.json" },
     "lineitems": {
       "type": "array",
-      "items": { "$ref": "https://raw.githubusercontent.com/laurent-colard-l5i/media-plan-ods/main/schemas/v0.0.0/lineitem.schema.json" }
+      "items": { "$ref": "lineitem.schema.json" }
     }
   }
 }

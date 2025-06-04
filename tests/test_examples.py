@@ -17,6 +17,7 @@ with open(SCHEMA_REGISTRY_PATH, "r", encoding="utf-8") as vr:
 
 example_files = glob.glob(EXAMPLES_PATH)
 
+
 @pytest.mark.parametrize("example_file", example_files)
 def test_example_is_valid(example_file):
     with open(example_file, "r", encoding="utf-8") as f:
@@ -32,12 +33,34 @@ def test_example_is_valid(example_file):
         f"(allowed: {supported_versions}) in file {example_file}"
     )
 
-    # Load and validate against correct schema
-    schema_path = os.path.join(BASE_DIR, "schemas", version, "mediaplan.schema.json")
-    assert os.path.exists(schema_path), f"Schema file not found for version: {version}"
+    # Load all schemas for this version
+    schema_dir = os.path.join(BASE_DIR, "schemas", version)
 
-    with open(schema_path, "r", encoding="utf-8") as sf:
-        schema = json.load(sf)
+    # Load main schema
+    mediaplan_schema_path = os.path.join(schema_dir, "mediaplan.schema.json")
+    assert os.path.exists(mediaplan_schema_path), f"Schema file not found for version: {version}"
 
-    resolver = RefResolver(base_uri=f"file://{os.path.abspath(schema_path)}", referrer=schema)
-    validate(instance=instance, schema=schema, resolver=resolver)
+    with open(mediaplan_schema_path, "r", encoding="utf-8") as sf:
+        mediaplan_schema = json.load(sf)
+
+    # Load campaign schema
+    campaign_schema_path = os.path.join(schema_dir, "campaign.schema.json")
+    with open(campaign_schema_path, "r", encoding="utf-8") as sf:
+        campaign_schema = json.load(sf)
+
+    # Load lineitem schema
+    lineitem_schema_path = os.path.join(schema_dir, "lineitem.schema.json")
+    with open(lineitem_schema_path, "r", encoding="utf-8") as sf:
+        lineitem_schema = json.load(sf)
+
+    # Create a custom resolver with all schemas preloaded
+    schema_store = {
+        "campaign.schema.json": campaign_schema,
+        "lineitem.schema.json": lineitem_schema,
+        "mediaplan.schema.json": mediaplan_schema
+    }
+
+    resolver = RefResolver(base_uri="", referrer=mediaplan_schema, store=schema_store)
+
+    # Validate the instance
+    validate(instance=instance, schema=mediaplan_schema, resolver=resolver)

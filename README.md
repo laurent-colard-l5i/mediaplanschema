@@ -1,4 +1,4 @@
-# Media Plan Open Data Standard (ODS)
+# Media Plan Open Data Standard (mediaplanschema)
 
 This repository defines a versioned, open, and extensible **JSON-based data standard** for representing media plans. It includes JSON Schema definitions, example media plans, and validation tooling for developers, analysts, and vendors working in the media planning ecosystem.
 
@@ -9,12 +9,18 @@ This repository defines a versioned, open, and extensible **JSON-based data stan
 ```
 media-plan-ods/
 ├── schemas/             # Versioned JSON Schema definitions
-│   └── v1.0.0/
-│       ├── campaign.schema.json
-│       ├── lineitem.schema.json
-│       └── mediaplan.schema.json
+│   ├── 0.0/
+│   │   ├── campaign.schema.json
+│   │   ├── lineitem.schema.json
+│   │   └── mediaplan.schema.json
+│   ├── 1.0/
+│   │   ├── campaign.schema.json
+│   │   ├── lineitem.schema.json
+│   │   └── mediaplan.schema.json
+│   └── schema_versions.json
 ├── examples/            # Example media plan files
-│   └── mediaplan_example.json
+│   ├── example_mediaplan_v0.0.json
+│   └── example_mediaplan_v1.0.json
 ├── tests/               # Unit tests for schema validation
 │   └── test_examples.py
 ├── .venv/               # Local Python virtual environment (not tracked in Git)
@@ -27,17 +33,27 @@ media-plan-ods/
 
 ## JSON Schema Overview
 
-Schemas are versioned under `schemas/v<version>/`. The main schema file is:
+Schemas are versioned under `schemas/<major>.<minor>/`. The main schema file is:
 
 ```
-schemas/v1.0.0/mediaplan.schema.json
+schemas/1.0/mediaplan.schema.json
 ```
 
 This references:
 - `campaign.schema.json`
 - `lineitem.schema.json`
 
-Each media plan JSON file must include a `meta.schema_version` field that declares the schema version used.
+Each media plan JSON file must include a `meta.schema_version` field that declares the schema version used (e.g., "1.0").
+
+### Schema Versioning Strategy
+
+**Major Version (X.0):** Breaking changes including renaming/removing fields, changing data types, changing allowable values, or adding required fields.
+
+**Minor Version (X.Y):** Non-breaking changes including adding optional fields or adding new allowable values to existing fields.
+
+Currently supported versions:
+- **0.0**: Legacy schema with simpler structure
+- **1.0**: Current schema with extended fields and structure
 
 ---
 
@@ -82,10 +98,21 @@ Each example is dynamically validated against the appropriate schema version dec
 
 To add a new schema version:
 
-1. Duplicate an existing folder under `/schemas/` (e.g. `v1.0.0` → `v1.1.0`)
+1. Duplicate an existing folder under `/schemas/` (e.g. `1.0` → `1.1`)
 2. Modify schemas as needed
-3. Create new examples under `/examples/` with `"schema_version": "v1.1.0"`
-4. Re-run tests to validate
+3. Update `schemas/schema_versions.json` to include the new version
+4. Create new examples under `/examples/` with `"schema_version": "1.1"`
+5. Re-run tests to validate
+
+Example of updating `schema_versions.json`:
+```json
+{
+  "current": "1.1",
+  "supported": ["0.0", "1.0", "1.1"],
+  "deprecated": [],
+  "description": "Defines supported schema versions for media plans"
+}
+```
 
 ---
 
