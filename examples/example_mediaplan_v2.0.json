@@ -203,94 +203,63 @@
     "custom_dimensions": {
       "dim_custom1": {
         "status": "enabled",
-        "caption": "Business Type",
-        "description": "Classification of business model (B2B, B2C, B2B2C)",
-        "data_type": "string"
+        "caption": "Business Type"
       },
       "dim_custom2": {
         "status": "enabled",
-        "caption": "Content Category",
-        "description": "Primary content approach for the creative",
-        "data_type": "string"
+        "caption": "Content Category"
       },
       "dim_custom3": {
         "status": "enabled",
-        "caption": "Device Primary",
-        "description": "Primary device target for optimization",
-        "data_type": "string"
+        "caption": "Device Primary"
       },
       "dim_custom4": {
         "status": "enabled",
-        "caption": "Device Secondary",
-        "description": "Secondary device consideration",
-        "data_type": "string"
+        "caption": "Device Secondary"
       },
       "dim_custom5": {
         "status": "enabled",
-        "caption": "Publisher Category",
-        "description": "Type of publisher or content environment",
-        "data_type": "string"
+        "caption": "Publisher Category"
       },
       "dim_custom6": {
         "status": "enabled",
-        "caption": "Content Strategy",
-        "description": "Strategic content approach for engagement",
-        "data_type": "string"
+        "caption": "Content Strategy"
       }
     },
     "custom_metrics": {
       "metric_custom1": {
         "status": "enabled",
-        "caption": "Brand Lift Score",
-        "description": "Brand awareness lift percentage from baseline",
-        "data_type": "number"
+        "caption": "Brand Lift Score"
       },
       "metric_custom2": {
         "status": "enabled",
-        "caption": "Avg Session Duration",
-        "description": "Average session duration in minutes for traffic from this line item",
-        "data_type": "number"
-      },
-      "metric_custom3": {
-        "status": "disabled"
+        "caption": "Avg Session Duration"
       },
       "metric_custom4": {
         "status": "enabled",
-        "caption": "Qualified Leads",
-        "description": "Number of marketing qualified leads generated",
-        "data_type": "integer"
+        "caption": "Qualified Leads"
       },
       "metric_custom5": {
         "status": "enabled",
-        "caption": "Share of Voice",
-        "description": "Percentage share of voice in target publications",
-        "data_type": "number"
+        "caption": "Share of Voice"
       },
       "metric_custom6": {
         "status": "enabled",
-        "caption": "Sentiment Score",
-        "description": "Social sentiment score for brand mentions driven by campaign",
-        "data_type": "number"
+        "caption": "Sentiment Score"
       }
     },
     "custom_costs": {
       "cost_custom1": {
         "status": "enabled",
-        "caption": "Agency Management Fee",
-        "description": "Agency management and optimization fee",
-        "data_type": "number"
+        "caption": "Agency Management Fee"
       },
       "cost_custom2": {
         "status": "enabled",
-        "caption": "Attribution Tool",
-        "description": "Cost for attribution and measurement tools",
-        "data_type": "number"
+        "caption": "Attribution Tool"
       },
       "cost_custom3": {
         "status": "enabled",
-        "caption": "Brand Safety Tool",
-        "description": "Brand safety and verification tool costs",
-        "data_type": "number"
+        "caption": "Brand Safety Tool"
       }
     }
   }
