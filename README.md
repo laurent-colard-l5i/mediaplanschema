@@ -17,10 +17,16 @@ media-plan-ods/
 │   │   ├── campaign.schema.json
 │   │   ├── lineitem.schema.json
 │   │   └── mediaplan.schema.json
+│   ├── 2.0/             # Preview version
+│   │   ├── campaign.schema.json
+│   │   ├── dictionary.schema.json
+│   │   ├── lineitem.schema.json
+│   │   └── mediaplan.schema.json
 │   └── schema_versions.json
 ├── examples/            # Example media plan files
 │   ├── example_mediaplan_v0.0.json
-│   └── example_mediaplan_v1.0.json
+│   ├── example_mediaplan_v1.0.json
+│   └── example_mediaplan_v2.0.json
 ├── tests/               # Unit tests for schema validation
 │   └── test_examples.py
 ├── .venv/               # Local Python virtual environment (not tracked in Git)
@@ -43,7 +49,14 @@ This references:
 - `campaign.schema.json`
 - `lineitem.schema.json`
 
-Each media plan JSON file must include a `meta.schema_version` field that declares the schema version used (e.g., "1.0").
+### Version 2.0 (Preview)
+
+Version 2.0 introduces an additional schema file:
+- `dictionary.schema.json` - Defines configuration for custom fields
+
+The **dictionary schema** allows organizations to define custom dimensions, metrics, and cost fields with human-readable captions and descriptions. This enables standardized use of custom fields across different media planning tools and workflows while maintaining semantic meaning.
+
+Each media plan JSON file must include a `meta.schema_version` field that declares the schema version used (e.g., "1.0" or "2.0").
 
 ### Schema Versioning Strategy
 
@@ -53,7 +66,8 @@ Each media plan JSON file must include a `meta.schema_version` field that declar
 
 Currently supported versions:
 - **0.0**: Legacy schema with simpler structure
-- **1.0**: Current schema with extended fields and structure
+- **1.0**: Current stable schema with extended fields and structure
+- **2.0**: Preview version with enhanced custom field configuration via dictionary schema
 
 ---
 
@@ -90,7 +104,51 @@ Run the unit test to validate all media plans in the `examples/` folder:
 pytest tests/test_examples.py
 ```
 
-Each example is dynamically validated against the appropriate schema version declared in its `meta.schema_version`.
+Each example is dynamically validated against the appropriate schema version declared in its `meta.schema_version`. The test suite supports all versions including preview versions.
+
+---
+
+## Schema Version Details
+
+### Version 0.0 (Legacy)
+- Basic structure with campaign and lineitem schemas
+- Simple budget structure
+- Limited customization options
+
+### Version 1.0 (Current Stable)
+- Enhanced campaign and lineitem schemas
+- Expanded budget tracking with cost breakdowns
+- Support for custom dimensions, metrics, and costs (up to 10 of each)
+- Improved targeting and audience definition
+
+### Version 2.0 (Preview)
+- All features from version 1.0
+- **New dictionary schema** for custom field configuration
+- Enhanced metadata tracking with separate creator ID and name fields
+- Workflow status tracking
+- Improved documentation and field descriptions
+- Support for currency specification
+- Additional standard metrics (engagements, followers, visits, leads, etc.)
+
+#### Dictionary Schema Benefits (v2.0)
+The dictionary schema enables:
+- **Semantic clarity**: Define what each custom field represents
+- **Tool interoperability**: Consistent field meanings across different platforms
+- **Data governance**: Centralized configuration of custom field usage
+- **User experience**: Human-readable captions for custom fields in applications
+
+Example dictionary configuration:
+```json
+"dictionary": {
+  "custom_dimensions": {
+    "dim_custom1": {
+      "status": "enabled",
+      "caption": "Business Type",
+      "description": "Classification of business model (B2B, B2C, B2B2C)"
+    }
+  }
+}
+```
 
 ---
 
@@ -98,17 +156,18 @@ Each example is dynamically validated against the appropriate schema version dec
 
 To add a new schema version:
 
-1. Duplicate an existing folder under `/schemas/` (e.g. `1.0` → `1.1`)
+1. Duplicate an existing folder under `/schemas/` (e.g. `2.0` → `2.1`)
 2. Modify schemas as needed
 3. Update `schemas/schema_versions.json` to include the new version
-4. Create new examples under `/examples/` with `"schema_version": "1.1"`
+4. Create new examples under `/examples/` with `"schema_version": "2.1"`
 5. Re-run tests to validate
 
 Example of updating `schema_versions.json`:
 ```json
 {
-  "current": "1.1",
-  "supported": ["0.0", "1.0", "1.1"],
+  "current": "1.0",
+  "supported": ["0.0", "1.0"],
+  "preview": ["2.0", "2.1"],
   "deprecated": [],
   "description": "Defines supported schema versions for media plans"
 }
@@ -123,6 +182,7 @@ We welcome issues, schema proposals, and example files.
 - Ensure you include `schema_version` in any proposed media plan examples
 - All PRs are tested for schema validity via unit tests
 - Contributions should follow semantic versioning when modifying schemas
+- When proposing changes to preview versions, consider backward compatibility impact
 
 ---
 
