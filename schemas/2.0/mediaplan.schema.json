@@ -8,7 +8,7 @@
     "meta": {
       "type": "object",
       "description": "Metadata about the media plan document itself",
-      "required": ["id", "schema_version", "created_by", "created_at"],
+      "required": ["id", "schema_version", "created_by_name", "created_at"],
       "properties": {
 		"id": {
           "type": "string",
@@ -63,7 +63,7 @@
       "items": { "$ref": "lineitem.schema.json" }
     },
     "dictionary": {
-      "$ref": "campaign.schema.json",
+      "$ref": "dictionary.schema.json",
       "description": "Configuration dictionary defining custom field settings and captions"
     }
   }
