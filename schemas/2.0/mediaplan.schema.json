@@ -7,25 +7,64 @@
   "properties": {
     "meta": {
       "type": "object",
+      "description": "Metadata about the media plan document itself",
       "required": ["id", "schema_version", "created_by", "created_at"],
       "properties": {
-		"id": { "type": "string" },
-        "schema_version": { "type": "string" },
-        "name": { "type": "string" },
-        "created_by_id": { "type": "string" },
-        "created_by_name": { "type": "string" },
-        "created_at": { "type": "string", "format": "date-time" },
-        "comments": { "type": "string" },
-        "is_current": { "type": "boolean" },
-        "is_archived": { "type": "boolean" },
-		"parent_id": { "type": "string" }
+		"id": {
+          "type": "string",
+          "description": "Unique identifier for this media plan document"
+        },
+        "schema_version": {
+          "type": "string",
+          "description": "Version of the media plan schema used (e.g., '2.0')"
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable name for the media plan"
+        },
+        "created_by_id": {
+          "type": "string",
+          "description": "Unique identifier of the user who created this media plan"
+        },
+        "created_by_name": {
+          "type": "string",
+          "description": "Full name of the user who created this media plan"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when this media plan was created in ISO 8601 format"
+        },
+        "comments": {
+          "type": "string",
+          "description": "General comments or notes about this media plan"
+        },
+        "is_current": {
+          "type": "boolean",
+          "description": "Whether this is the current/active version of the media plan"
+        },
+        "is_archived": {
+          "type": "boolean",
+          "description": "Whether this media plan has been archived"
+        },
+		"parent_id": {
+          "type": "string",
+          "description": "Identifier of the parent media plan if this is a revision or copy"
+        }
       }
     },
-    "campaign": { "$ref": "campaign.schema.json" },
+    "campaign": {
+      "$ref": "campaign.schema.json",
+      "description": "Campaign information and configuration for this media plan"
+    },
     "lineitems": {
       "type": "array",
+      "description": "Collection of individual line items that make up the media plan",
       "items": { "$ref": "lineitem.schema.json" }
     },
-    "dictionary": { "$ref": "campaign.schema.json" }
+    "dictionary": {
+      "$ref": "campaign.schema.json",
+      "description": "Configuration dictionary defining custom field settings and captions"
+    }
   }
 }

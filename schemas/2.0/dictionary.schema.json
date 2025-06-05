@@ -1,45 +1,90 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "campaign.schema.json",
-  "title": "Campaign",
+  "$id": "dictionary.schema.json",
+  "title": "Dictionary",
+  "description": "Configuration schema for custom fields in media plan line items",
   "type": "object",
-  "required": ["id", "name", "start_date", "end_date", "budget_total"],
   "properties": {
-    "id": { "type": "string" },
-    "name": { "type": "string" },
-    "objective": { "type": "string" },
-    "start_date": { "type": "string", "format": "date" },
-    "end_date": { "type": "string", "format": "date" },
-    "budget_total": { "type": "number" },
-    "agency_id": { "type": "string" },
-    "agency_name": { "type": "string" },
-    "advertiser_id": { "type": "string" },
-    "advertiser_name": { "type": "string" },
-    "product_id": { "type": "string" },
-    "product_name": { "type": "string" },
-    "product_description": { "type": "string" },
-    "campaign_type_id": { "type": "string" },
-    "campaign_type_name": { "type": "string" },
-	"audience_name": { "type": "string" },
-	"audience_age_start": { "type": "integer" },
-	"audience_age_end": { "type": "integer" },
-	"audience_gender": { 
-		"type": "string",
-		"enum": ["Male", "Female", "Any"]
-	},
-	"audience_interests": {
-	  "type": "array",
-	  "items": { "type": "string" }
-	},
-    "location_type": {
-      "type": "string",
-      "enum": ["Country", "State"]
+    "custom_dimensions": {
+      "type": "object",
+      "description": "Configuration for custom dimension fields (dim_custom1-10)",
+      "properties": {
+        "dim_custom1": { "$ref": "#/$defs/custom_field_config" },
+        "dim_custom2": { "$ref": "#/$defs/custom_field_config" },
+        "dim_custom3": { "$ref": "#/$defs/custom_field_config" },
+        "dim_custom4": { "$ref": "#/$defs/custom_field_config" },
+        "dim_custom5": { "$ref": "#/$defs/custom_field_config" },
+        "dim_custom6": { "$ref": "#/$defs/custom_field_config" },
+        "dim_custom7": { "$ref": "#/$defs/custom_field_config" },
+        "dim_custom8": { "$ref": "#/$defs/custom_field_config" },
+        "dim_custom9": { "$ref": "#/$defs/custom_field_config" },
+        "dim_custom10": { "$ref": "#/$defs/custom_field_config" }
+      },
+      "additionalProperties": false
     },
-	"locations": {
-	  "type": "array",
-	  "items": { "type": "string" }
-	},
-    "workflow_status_id": { "type": "string" },
-    "workflow_status_name": { "type": "string" }
+    "custom_metrics": {
+      "type": "object",
+      "description": "Configuration for custom metric fields (metric_custom1-10)",
+      "properties": {
+        "metric_custom1": { "$ref": "#/$defs/custom_field_config" },
+        "metric_custom2": { "$ref": "#/$defs/custom_field_config" },
+        "metric_custom3": { "$ref": "#/$defs/custom_field_config" },
+        "metric_custom4": { "$ref": "#/$defs/custom_field_config" },
+        "metric_custom5": { "$ref": "#/$defs/custom_field_config" },
+        "metric_custom6": { "$ref": "#/$defs/custom_field_config" },
+        "metric_custom7": { "$ref": "#/$defs/custom_field_config" },
+        "metric_custom8": { "$ref": "#/$defs/custom_field_config" },
+        "metric_custom9": { "$ref": "#/$defs/custom_field_config" },
+        "metric_custom10": { "$ref": "#/$defs/custom_field_config" }
+      },
+      "additionalProperties": false
+    },
+    "custom_costs": {
+      "type": "object",
+      "description": "Configuration for custom cost fields (cost_custom1-10)",
+      "properties": {
+        "cost_custom1": { "$ref": "#/$defs/custom_field_config" },
+        "cost_custom2": { "$ref": "#/$defs/custom_field_config" },
+        "cost_custom3": { "$ref": "#/$defs/custom_field_config" },
+        "cost_custom4": { "$ref": "#/$defs/custom_field_config" },
+        "cost_custom5": { "$ref": "#/$defs/custom_field_config" },
+        "cost_custom6": { "$ref": "#/$defs/custom_field_config" },
+        "cost_custom7": { "$ref": "#/$defs/custom_field_config" },
+        "cost_custom8": { "$ref": "#/$defs/custom_field_config" },
+        "cost_custom9": { "$ref": "#/$defs/custom_field_config" },
+        "cost_custom10": { "$ref": "#/$defs/custom_field_config" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "custom_field_config": {
+      "type": "object",
+      "description": "Configuration for a single custom field",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["enabled", "disabled"],
+          "description": "Whether this custom field is enabled or disabled"
+        },
+        "caption": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "description": "Display caption for this custom field (required when status is enabled)"
+        }
+      },
+      "if": {
+        "properties": {
+          "status": { "const": "enabled" }
+        }
+      },
+      "then": {
+        "required": ["caption"]
+      },
+      "additionalProperties": false
+    }
   }
 }
