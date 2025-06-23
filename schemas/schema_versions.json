@@ -3,5 +3,5 @@
   "current": "2.0",
   "supported": ["1.0", "2.0"],
   "preview": [],
-  "description": "Defines supported schema versions for media plans"
+  "description": "Defines supported schema versions for media plans."
 }
