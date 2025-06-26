@@ -2,6 +2,8 @@
 
 This repository defines a versioned, open, and extensible **JSON-based data standard** for representing media plans. It includes JSON Schema definitions, example media plans, and validation tooling for developers, analysts, and vendors working in the media planning ecosystem.
 
+For developers looking to build applications with this standard, check out our **[mediaplanpy](https://github.com/laurent-colard-l5i/mediaplanpy)** sister repository - an open source Python SDK that provides the foundational tools you need to build, manage, and analyze media plans based on this Open Data Standard.
+
 ---
 
 ## Repository Structure
@@ -17,7 +19,7 @@ media-plan-ods/
 │   │   ├── campaign.schema.json
 │   │   ├── lineitem.schema.json
 │   │   └── mediaplan.schema.json
-│   ├── 2.0/             # Preview version
+│   ├── 2.0/             # Current version
 │   │   ├── campaign.schema.json
 │   │   ├── dictionary.schema.json
 │   │   ├── lineitem.schema.json
@@ -42,14 +44,15 @@ media-plan-ods/
 Schemas are versioned under `schemas/<major>.<minor>/`. The main schema file is:
 
 ```
-schemas/1.0/mediaplan.schema.json
+schemas/2.0/mediaplan.schema.json
 ```
 
 This references:
 - `campaign.schema.json`
 - `lineitem.schema.json`
+- `dictionary.schema.json`
 
-### Version 2.0 (Preview)
+### Version 2.0 (Current)
 
 Version 2.0 introduces an additional schema file:
 - `dictionary.schema.json` - Defines configuration for custom fields
@@ -65,9 +68,9 @@ Each media plan JSON file must include a `meta.schema_version` field that declar
 **Minor Version (X.Y):** Non-breaking changes including adding optional fields or adding new allowable values to existing fields.
 
 Currently supported versions:
-- **0.0**: Legacy schema with simpler structure
-- **1.0**: Current stable schema with extended fields and structure
-- **2.0**: Preview version with enhanced custom field configuration via dictionary schema
+- **0.0**: Deprecated - Legacy schema with simpler structure
+- **1.0**: Supported - Stable schema with extended fields and structure
+- **2.0**: Current - Enhanced version with custom field configuration via dictionary schema
 
 ---
 
@@ -104,24 +107,25 @@ Run the unit test to validate all media plans in the `examples/` folder:
 pytest tests/test_examples.py
 ```
 
-Each example is dynamically validated against the appropriate schema version declared in its `meta.schema_version`. The test suite supports all versions including preview versions.
+Each example is dynamically validated against the appropriate schema version declared in its `meta.schema_version`. The test suite supports all versions including current and supported versions.
 
 ---
 
 ## Schema Version Details
 
-### Version 0.0 (Legacy)
+### Version 0.0 (Deprecated)
 - Basic structure with campaign and lineitem schemas
 - Simple budget structure
 - Limited customization options
+- **Note**: This version is deprecated and should not be used for new implementations
 
-### Version 1.0 (Current Stable)
+### Version 1.0 (Supported)
 - Enhanced campaign and lineitem schemas
 - Expanded budget tracking with cost breakdowns
 - Support for custom dimensions, metrics, and costs (up to 10 of each)
 - Improved targeting and audience definition
 
-### Version 2.0 (Preview)
+### Version 2.0 (Current)
 - All features from version 1.0
 - **New dictionary schema** for custom field configuration
 - Enhanced metadata tracking with separate creator ID and name fields
@@ -152,26 +156,16 @@ Example dictionary configuration:
 
 ---
 
-## Adding a New Schema Version
+## Developer Tools
 
-To add a new schema version:
+### Python SDK - mediaplanpy
 
-1. Duplicate an existing folder under `/schemas/` (e.g. `2.0` → `2.1`)
-2. Modify schemas as needed
-3. Update `schemas/schema_versions.json` to include the new version
-4. Create new examples under `/examples/` with `"schema_version": "2.1"`
-5. Re-run tests to validate
+For developers building applications with this standard, we recommend using **[mediaplanpy](https://github.com/planmatic/mediaplanpy)** - our open source Python SDK that provides:
 
-Example of updating `schema_versions.json`:
-```json
-{
-  "current": "1.0",
-  "supported": ["0.0", "1.0"],
-  "preview": ["2.0", "2.1"],
-  "deprecated": [],
-  "description": "Defines supported schema versions for media plans"
-}
-```
+- **Schema validation** - Validate media plans against any schema version
+- **Data manipulation** - Create, modify, and analyze media plan data
+- **Import/Export** - Convert between different formats and systems
+- **Analysis tools** - Built-in functions for media plan analysis and reporting
 
 ---
 
@@ -182,7 +176,7 @@ We welcome issues, schema proposals, and example files.
 - Ensure you include `schema_version` in any proposed media plan examples
 - All PRs are tested for schema validity via unit tests
 - Contributions should follow semantic versioning when modifying schemas
-- When proposing changes to preview versions, consider backward compatibility impact
+- When proposing changes to current versions, consider backward compatibility impact
 
 ---
 
@@ -194,4 +188,4 @@ This project is open source under the [MIT License](LICENSE).
 
 ## Contact
 
-Created and maintained by [Laurent Colard](https://github.com/laurent-colard-l5i).
+Created and maintained by [Planmatic.io](https://www.planmatic.io).
